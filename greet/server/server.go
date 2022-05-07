@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -12,6 +13,13 @@ var addr string = "0.0.0.0:50051"
 
 type Server struct {
 	pb.GreetServiceServer
+}
+
+func (s *Server) Greet(ctx context.Context, in *pb.GreetRequest) (*pb.GreetResponse, error) {
+	log.Printf("Greet function invoked with %v\n", in)
+	return &pb.GreetResponse{
+		Result: "Hello ! " + in.FirstName,
+	}, nil
 }
 
 func main() {
