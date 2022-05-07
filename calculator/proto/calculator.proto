@@ -4,11 +4,8 @@ package calculator;
 
 option go_package = "github.com/gain620/realtime-dashboard-grpc/calculator/proto";
 
-message SumRequest {
-  int32 first_number = 1;
-  int32 second_number = 2;
-}
+import "sum.proto";
 
-message SumResponse {
-  int32 result = 1;
+service CalculatorService {
+  rpc Sum (SumRequest) returns (SumResponse);
 }

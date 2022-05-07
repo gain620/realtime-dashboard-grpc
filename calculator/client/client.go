@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	pb "github.com/gain620/realtime-dashboard-grpc/calculator/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -9,19 +8,6 @@ import (
 )
 
 var addr string = "0.0.0.0:50052"
-
-func doSum(a, b int32, c pb.SumServiceClient) {
-	log.Printf("doSum function invoked")
-	res, err := c.Sum(context.Background(), &pb.SumRequest{
-		A: a,
-		B: b,
-	})
-	if err != nil {
-		log.Fatalf("Couldn't call sum function : %v\n", err)
-	}
-
-	log.Printf("Sum : %v\n", res.Sum)
-}
 
 func main() {
 	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -35,7 +21,7 @@ func main() {
 		}
 	}(conn)
 
-	c := pb.NewSumServiceClient(conn)
+	c := pb.NewCalculatorServiceClient(conn)
 
 	doSum(10, 3, c)
 }
