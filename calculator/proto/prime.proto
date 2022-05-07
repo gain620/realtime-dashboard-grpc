@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "github.com/gain620/realtime-dashboard-grpc/calculator/proto";
+
+message PrimeRequest {
+  int32 prime_number = 1;
+}
+
+message PrimeResponse {
+  int32 result = 1;
+}
